@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+
+    tools:context=".Actividades.Listado_Acty">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcy01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/dl"
+        android:layout_marginBottom="@dimen/dl"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/appbar"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/whiteGreyplus"
+        app:buttonGravity="center_vertical"
+        app:fabAlignmentMode="center"
+        app:fabCradleRoundedCornerRadius="@dimen/dxxxl"
+        app:menu="@menu/menu_listado"
+        app:navigationIcon="@drawable/ic_save_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        app:layout_anchor="@id/appbar"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    <com.google.android.material.transformation.TransformationChildCard
+        android:id="@+id/sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dm"
+        android:layout_marginTop="@dimen/dm"
+        android:layout_marginEnd="@dimen/dm"
+        android:layout_marginBottom="@dimen/ds"
+        android:visibility="invisible"
+        app:cardElevation="2dp"
+
+        app:layout_behavior="@string/fab_transformation_sheet_behavior">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:padding="@dimen/dm">
+
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dl"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_close_black_24dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/close_button"
+
+                android:hint="@string/nombre_card"
+                android:maxLines="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:maxLength="20"
+                    android:nextFocusDown="@id/edMensaje" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etTitulo"
+                android:layout_alignParentStart="true"
+                android:text="@string/descripcion" />
+
+            <TextView
+                android:id="@+id/tv02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etTitulo"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/edMensaje"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/btnOk"
+                android:layout_below="@+id/tv01"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swBlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edMensaje"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/dm" />
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/swBlock"
+                android:text="@string/aceptar" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.transformation.TransformationChildCard>
+<TextView
+    android:id="@+id/tvVacio"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:textSize="@dimen/txxl"
+    android:text="@string/Vacio"
+    android:visibility="gone"
+    />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,5 +2,12 @@
     <string name="app_name">Notas Compartidas</string>
     <string name="login_tv01">Notas Compartidas</string>
     <string name="login_tv02">Numero Telefonico</string>
-    <string name="btnOk">Aceptar</string>
+    <string name="btnOk">Aceptar</string><string name="buscar">Buscar</string>
+    <string name="guardar">Guardar</string>
+    <string name="orden">Ordenar</string>
+    <string name="nombre_card">Titulo</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="Vacio">Vacio</string>
+    <string name="campoObligado">Campo obligatorio</string>
 </resources>

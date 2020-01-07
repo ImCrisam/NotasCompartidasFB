@@ -12,15 +12,16 @@
     <dimen name="dxl">24dp</dimen>
     <dimen name="dxxl">32dp</dimen>
     <dimen name="dxxxl">64dp</dimen>
+    <dimen name="dxxxxl">128dp</dimen>
 
 
-    <dimen name="txs">10dp</dimen>
-    <dimen name="ts">12dp</dimen>
-    <dimen name="tm">15dp</dimen>
-    <dimen name="tl">18dp</dimen>
-    <dimen name="txl">24dp</dimen>
-    <dimen name="txxl">32dp</dimen>
-    <dimen name="txxxl">48dp</dimen>
+    <dimen name="txs">10sp</dimen>
+    <dimen name="ts">12sp</dimen>
+    <dimen name="tm">15sp</dimen>
+    <dimen name="tl">18sp</dimen>
+    <dimen name="txl">24sp</dimen>
+    <dimen name="txxl">32sp</dimen>
+    <dimen name="txxxl">48sp</dimen>
 
 
 </resources>
