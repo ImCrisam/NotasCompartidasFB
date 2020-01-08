@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/ds"
+    android:layout_marginVertical="@dimen/dm"
+    android:background="@color/whiteGreyplus"
+    android:elevation="@dimen/dp_2"
+    android:layout_marginStart="@dimen/dm"
+    android:layout_marginEnd="@dimen/dm"
+
+    app:cardCornerRadius="@dimen/dm">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dm"
+        android:paddingVertical="@dimen/dm">
+
+        <TextView
+            android:id="@+id/tvnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Nombre del la nota"
+
+            android:textSize="@dimen/tl" />
+
+        <TextView
+            android:id="@+id/tvFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="00/00/0000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/ts" />
+
+        <TextView
+            android:id="@+id/tvCuerpo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvnombre"
+            android:layout_marginTop="@dimen/ds"
+            android:gravity="center"
+            android:text="corto del mensaje"
+            android:textSize="@dimen/tm" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

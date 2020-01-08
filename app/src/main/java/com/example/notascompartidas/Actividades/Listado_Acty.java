@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -46,6 +47,8 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
     Type_Card cardType_View;
     Mensaje mEnUSo;
     private List<Mensaje> lista;
+    RecyclerView recy;
+    private boolean isExpan;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,9 +56,9 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         setContentView(R.layout.acty_listado);
 
         lista = getLista();
+        isExpan = false;
 
-
-        final RecyclerView recy = findViewById(R.id.rcy01);
+        recy = findViewById(R.id.rcy01);
         recy.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         AdaptadorListado adapter = new AdaptadorListado(this, lista, R.layout.item_listado_mensaje);
         recy.setAdapter(adapter);
@@ -105,7 +108,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onClick(View v) {
 
-                Mensaje m =getMensajeCard(null);
+                Mensaje m = getMensajeCard(null);
                 if (m != null) {
                     lista.add(m);
                     hideCard(Type_Card.TYPE_NEW, false);
@@ -115,12 +118,13 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
 
     }
+
     private Mensaje getMensajeCard(Mensaje mensaje) {
         if (mensaje == null) {
             mensaje = new Mensaje();
         }
 
-        String titulo= edTitulo.getText().toString() ;
+        String titulo = edTitulo.getText().toString();
         if (titulo == null || titulo.isEmpty()) {
             edTitulo.setError(getString(R.string.campoObligado));
             return null;
@@ -171,7 +175,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
                 edTitulo.setText(mensaje.getNombre());
                 tvfecha.setText(mensaje.getFecha());
                 break;
-              }
+        }
     }
 
     private void hideCard(Type_Card oldType, boolean isSaveTempo) {
@@ -210,36 +214,17 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
     private List<Mensaje> getLista() {
         List<Mensaje> mensajes = new ArrayList<>();
-/*
+        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgasdghas"));
+        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
+        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
+        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjghas"));
         mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
         mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
         mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
         mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
         mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-*/
+        mensajes.add(new Mensaje("fecha", "nombre", "Ultimo"));
+
 
         return mensajes;
     }
@@ -256,8 +241,28 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
             case R.id.orden:
                 mensaje = "orden";
                 break;
+
+            case R.id.tamaño:
+                if (isExpan) {
+                    setLayoutAdaptar(lista, R.layout.item_listado_mensaje);
+
+                } else {
+                    setLayoutAdaptar(lista, R.layout.item_listado_mensaje_plus);
+                }
+                isExpan = !isExpan;
+                break;
+
         }
-        System.out.println(mensaje);
+
         return false;
     }
+
+    private AdaptadorListado setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
+        AdaptadorListado adapter = new AdaptadorListado(this, mensajes, layout);
+        recy.setAdapter(adapter);
+
+        return adapter;
+    }
+
+
 }
