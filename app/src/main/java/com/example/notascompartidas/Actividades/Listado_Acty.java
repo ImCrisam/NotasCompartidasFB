@@ -3,14 +3,13 @@ package com.example.notascompartidas.Actividades;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -20,7 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notascompartidas.Adaptadores.AdaptadorListado;
-import com.example.notascompartidas.Enum.Type_Card;
+import com.example.notascompartidas.Modelos.Estados.Estado;
+import com.example.notascompartidas.Modelos.Estados.Estado_Editable;
+import com.example.notascompartidas.Modelos.Estados.Estado_Nuevo;
+import com.example.notascompartidas.Modelos.Estados.Estado_Vista;
 import com.example.notascompartidas.Modelos.Mensaje;
 import com.example.notascompartidas.OnClickMensaje;
 import com.example.notascompartidas.R;
@@ -38,20 +40,20 @@ import java.util.Locale;
 
 public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnClickMensaje {
 
-    EditText edMensaje;
-    EditText edTitulo;
-    SwitchCompat switchCompat;
-    FloatingActionButton fbtn;
-    InputMethodManager imm;
-    BottomAppBar appbar;
-    View btnOk;
-    TextView tvfecha;
-    TextView tvvacio;
-    Type_Card cardType_View;
-    Mensaje mEnUSo;
-    private List<Mensaje> lista;
-    RecyclerView recy;
+    protected static EditText edMensaje;
+    protected static EditText edTitulo;
+    protected static SwitchCompat switchCompat;
+    protected static FloatingActionButton fbtn;
+    protected static InputMethodManager imm;
+    protected static BottomAppBar appbar;
+    protected static Button btnOk;
+    protected static TextView tvfecha;
+    protected static TextView tvvacio;
+    protected Mensaje mEnUSo;
+    protected static List<Mensaje> lista;
+    private RecyclerView recy;
     private boolean isExpan;
+    private Estado estado;
 
 
     @Override
@@ -76,7 +78,6 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         switchCompat = findViewById(R.id.swBlock);
 
         View closeButton = findViewById(R.id.close_button);
-        TransformationChildCard sheet = findViewById(R.id.sheet);
         btnOk = findViewById(R.id.btnOk);
         fbtn = findViewById(R.id.fbtn);
         tvfecha = findViewById(R.id.tv02);
@@ -86,17 +87,19 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         appbar.setOnMenuItemClickListener(this);
 
         if (lista.size() == 0) {
-            showCard(null, Type_Card.TYPE_NEW);
+            estado = new Estado_Nuevo();
+            estado.mostar(null);
         }
 
         fbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (fbtn.isExpanded()) {
-                    hideCard(cardType_View, false);
+                    estado.ocultar(false);
 
                 } else {
-                    showCard(null, Type_Card.TYPE_NEW);
+                    estado = new Estado_Nuevo();
+                    estado.mostar(null);
                 }
             }
         });
@@ -104,7 +107,8 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideCard(cardType_View, switchCompat.isChecked());
+                estado.ocultar(switchCompat.isChecked());
+
             }
         });
 
@@ -115,7 +119,8 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
                 Mensaje m = getMensajeCard(null);
                 if (m != null) {
                     lista.add(m);
-                    hideCard(Type_Card.TYPE_NEW, false);
+                    estado.ocultar(false);
+
                 }
             }
         });
@@ -123,17 +128,15 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
     }
 
-    private Mensaje getMensajeCard(Mensaje mensaje) {
+    protected Mensaje getMensajeCard(Mensaje mensaje) {
         if (mensaje == null) {
             mensaje = new Mensaje();
         }
 
         String titulo = edTitulo.getText().toString();
-        if (titulo == null) {
-            if (titulo.isEmpty()) {
-                edTitulo.setError(getString(R.string.campoObligado));
-                return null;
-            }
+        if (titulo.isEmpty()) {
+            edTitulo.setError(getString(R.string.campoObligado));
+            return null;
         }
         mensaje.setNombre(edTitulo.getText().toString());
         mensaje.setCuerpo(edMensaje.getText().toString());
@@ -149,79 +152,6 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         mensaje.setPuntos(0);
         return mensaje;
     }
-
-
-    private void showCard(Mensaje mensaje, Type_Card type) {
-        edMensaje.setEnabled(true);
-        edTitulo.setEnabled(true);
-        btnOk.setVisibility(View.VISIBLE);
-        switchCompat.setVisibility(View.VISIBLE);
-        tvfecha.setVisibility(View.VISIBLE);
-        tvfecha.setText("");
-        cardType_View = type;
-        if (mensaje == null) {
-            mensaje = new Mensaje("", "", "");
-        }
-        fbtn.setExpanded(true);
-        switch (type) {
-            case TYPE_EDIT:
-                switchCompat.setVisibility(View.GONE);
-                edTitulo.requestFocus();
-                edMensaje.setText(mensaje.getCuerpo());
-                edTitulo.setText(mensaje.getNombre());
-                tvfecha.setText(mensaje.getFecha());
-                break;
-            case TYPE_NEW:
-                edTitulo.requestFocus();
-                tvfecha.setVisibility(View.INVISIBLE);
-                imm.showSoftInput(edTitulo, InputMethodManager.SHOW_IMPLICIT);
-                appbar.setVisibility(View.GONE);
-                break;
-            case TYPE_VIEW:
-                edMensaje.setEnabled(false);
-                edTitulo.setEnabled(false);
-                btnOk.setVisibility(View.GONE);
-                switchCompat.setVisibility(View.GONE);
-                edMensaje.setText(mensaje.getCuerpo());
-                edTitulo.setText(mensaje.getNombre());
-                tvfecha.setText(mensaje.getFecha());
-                break;
-        }
-    }
-
-    private void hideCard(Type_Card oldType, boolean isSaveTempo) {
-        switch (oldType) {
-            case TYPE_NEW:
-            case TYPE_EDIT:
-
-                View view = Listado_Acty.this.getCurrentFocus();
-                view.clearFocus();
-                if (view != null) {
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-                if (!isSaveTempo) {
-                    edMensaje.setText("");
-                    edTitulo.setText("");
-                }
-                fbtn.setExpanded(false);
-                appbar.setVisibility(View.VISIBLE);
-                if (lista.size() == 0) {
-                    tvvacio.setVisibility(View.VISIBLE);
-                } else {
-                    tvvacio.setVisibility(View.GONE);
-                }
-                break;
-            case TYPE_VIEW:
-                fbtn.setExpanded(false);
-                appbar.setVisibility(View.VISIBLE);
-                edMensaje.setText("");
-                edTitulo.setText("");
-                tvfecha.setText("");
-                break;
-
-        }
-    }
-
 
     private List<Mensaje> getLista() {
         List<Mensaje> mensajes = new ArrayList<>();
@@ -243,14 +173,11 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        String mensaje = "";
         switch (item.getItemId()) {
             case R.id.buscar:
-                mensaje = "buscar";
                 break;
 
             case R.id.orden:
-                mensaje = "orden";
                 break;
 
             case R.id.tamaño:
@@ -268,11 +195,10 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         return false;
     }
 
-    private AdaptadorListado setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
+    private void setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
         AdaptadorListado adapter = new AdaptadorListado(this, mensajes, layout, this);
         recy.setAdapter(adapter);
 
-        return adapter;
     }
 
     @Override
@@ -283,10 +209,10 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
     @Override
     public void onClickMensaje(Mensaje mensaje, int position) {
         if (isExpan) {
-            showCard(mensaje, Type_Card.TYPE_EDIT);
+            estado = new Estado_Editable();
         } else {
-            showCard(mensaje, Type_Card.TYPE_VIEW);
-
+            estado = new Estado_Vista();
         }
+        estado.mostar(mensaje);
     }
 }

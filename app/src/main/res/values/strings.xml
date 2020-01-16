@@ -10,4 +10,5 @@
     <string name="aceptar">Aceptar</string>
     <string name="Vacio">Vacio</string>
     <string name="campoObligado">Campo obligatorio</string>
+    <string name="editar">Editar</string>
 </resources>
