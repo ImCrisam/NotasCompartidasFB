@@ -3,12 +3,14 @@ package com.example.notascompartidas.Actividades;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notascompartidas.Adaptadores.AdaptadorListado;
 import com.example.notascompartidas.Enum.Type_Card;
 import com.example.notascompartidas.Modelos.Mensaje;
+import com.example.notascompartidas.OnClickMensaje;
 import com.example.notascompartidas.R;
 import com.example.notascompartidas.SwiperControlador;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -33,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnClickMensaje {
 
     EditText edMensaje;
     EditText edTitulo;
@@ -50,6 +53,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
     RecyclerView recy;
     private boolean isExpan;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +64,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
         recy = findViewById(R.id.rcy01);
         recy.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        AdaptadorListado adapter = new AdaptadorListado(this, lista, R.layout.item_listado_mensaje);
+        AdaptadorListado adapter = new AdaptadorListado(this, lista, R.layout.item_listado_mensaje, this);
         recy.setAdapter(adapter);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwiperControlador(adapter));
@@ -125,9 +129,11 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         }
 
         String titulo = edTitulo.getText().toString();
-        if (titulo == null || titulo.isEmpty()) {
-            edTitulo.setError(getString(R.string.campoObligado));
-            return null;
+        if (titulo == null) {
+            if (titulo.isEmpty()) {
+                edTitulo.setError(getString(R.string.campoObligado));
+                return null;
+            }
         }
         mensaje.setNombre(edTitulo.getText().toString());
         mensaje.setCuerpo(edMensaje.getText().toString());
@@ -137,6 +143,8 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
             Date date = new Date();
             DateFormat.getTimeInstance();
             mensaje.setFecha(dateFormat.format(date));
+        } else {
+            mensaje.setFecha(tvfecha.getText().toString());
         }
         mensaje.setPuntos(0);
         return mensaje;
@@ -144,31 +152,34 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
 
     private void showCard(Mensaje mensaje, Type_Card type) {
-        edMensaje.setFocusable(true);
-        edTitulo.setFocusable(true);
+        edMensaje.setEnabled(true);
+        edTitulo.setEnabled(true);
         btnOk.setVisibility(View.VISIBLE);
         switchCompat.setVisibility(View.VISIBLE);
+        tvfecha.setVisibility(View.VISIBLE);
+        tvfecha.setText("");
         cardType_View = type;
         if (mensaje == null) {
             mensaje = new Mensaje("", "", "");
         }
+        fbtn.setExpanded(true);
         switch (type) {
             case TYPE_EDIT:
                 switchCompat.setVisibility(View.GONE);
+                edTitulo.requestFocus();
                 edMensaje.setText(mensaje.getCuerpo());
                 edTitulo.setText(mensaje.getNombre());
                 tvfecha.setText(mensaje.getFecha());
                 break;
             case TYPE_NEW:
-                fbtn.setExpanded(true);
                 edTitulo.requestFocus();
+                tvfecha.setVisibility(View.INVISIBLE);
                 imm.showSoftInput(edTitulo, InputMethodManager.SHOW_IMPLICIT);
                 appbar.setVisibility(View.GONE);
                 break;
             case TYPE_VIEW:
-                fbtn.setExpanded(true);
-                edMensaje.setFocusable(false);
-                edTitulo.setFocusable(false);
+                edMensaje.setEnabled(false);
+                edTitulo.setEnabled(false);
                 btnOk.setVisibility(View.GONE);
                 switchCompat.setVisibility(View.GONE);
                 edMensaje.setText(mensaje.getCuerpo());
@@ -258,11 +269,24 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     private AdaptadorListado setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
-        AdaptadorListado adapter = new AdaptadorListado(this, mensajes, layout);
+        AdaptadorListado adapter = new AdaptadorListado(this, mensajes, layout, this);
         recy.setAdapter(adapter);
 
         return adapter;
     }
 
+    @Override
+    public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onClickMensaje(Mensaje mensaje, int position) {
+        if (isExpan) {
+            showCard(mensaje, Type_Card.TYPE_EDIT);
+        } else {
+            showCard(mensaje, Type_Card.TYPE_VIEW);
+
+        }
+    }
 }
