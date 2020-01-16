@@ -5,7 +5,8 @@ public class Mensaje {
     private String fecha;
     private String nombre;
     private String cuerpo;
-    private int puntos;
+    private String rank;
+    private String por;
 
     public Mensaje() {
     }
@@ -16,19 +17,19 @@ public class Mensaje {
         this.cuerpo = cuerpo;
     }
 
-    public Mensaje(String fecha, String nombre, String cuerpo, int puntos) {
+    public Mensaje(String fecha, String nombre, String cuerpo, String puntos) {
         this.fecha = fecha;
         this.nombre = nombre;
         this.cuerpo = cuerpo;
-        this.puntos = puntos;
+        this.rank = puntos;
     }
 
-    public int getPuntos() {
-        return puntos;
+    public String getRank() {
+        return rank;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     public String getFecha() {
@@ -53,5 +54,13 @@ public class Mensaje {
 
     public void setCuerpo(String cuerpo) {
         this.cuerpo = cuerpo;
+    }
+
+    public String getPor() {
+        return por;
+    }
+
+    public void setPor(String por) {
+        this.por = por;
     }
 }

@@ -2,6 +2,7 @@ package com.example.notascompartidas.Actividades;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,7 +30,12 @@ import com.example.notascompartidas.R;
 import com.example.notascompartidas.SwiperControlador;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.transformation.TransformationChildCard;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -54,12 +60,14 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
     private RecyclerView recy;
     private boolean isExpan;
     private Estado estado;
+    private DatabaseReference db;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_listado);
+        db = FirebaseDatabase.getInstance().getReference();
 
         lista = getLista();
         isExpan = false;
@@ -149,24 +157,29 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         } else {
             mensaje.setFecha(tvfecha.getText().toString());
         }
-        mensaje.setPuntos(0);
+        mensaje.setRank("0");
         return mensaje;
     }
 
     private List<Mensaje> getLista() {
-        List<Mensaje> mensajes = new ArrayList<>();
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjgdkhasjkdhkjasgdjghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "asjdkhasjkdhkjasgdjgasdghas"));
-        mensajes.add(new Mensaje("fecha", "nombre", "Ultimo"));
+        final List<Mensaje> mensajes = new ArrayList<>();
+        db.child("Listas").child("id_lista").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Mensaje message = child.getValue(Mensaje.class);
+                    mensajes.add(message);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error)
+            {
 
 
+            }
+        });
         return mensajes;
     }
 

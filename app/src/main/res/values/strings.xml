@@ -11,4 +11,11 @@
     <string name="Vacio">Vacio</string>
     <string name="campoObligado">Campo obligatorio</string>
     <string name="editar">Editar</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="twitter">Twitter</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="erro_login">Usuario o contraseña incorrecta</string>
 </resources>

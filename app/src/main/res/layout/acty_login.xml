@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat"
 
     android:orientation="vertical">
 
@@ -13,60 +14,69 @@
         android:layout_marginTop="@dimen/ds"
         android:src="@drawable/ic_icon_notas_compartidas02" />
 
-    <RelativeLayout
+    <LinearLayout
 
         android:id="@+id/rl01"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/img01"
         android:layout_marginHorizontal="@dimen/dxxl"
         android:layout_marginTop="@dimen/dxxl"
         android:layout_marginBottom="@dimen/dxxl"
+        android:orientation="vertical">
 
-        >
-
-        <TextView
-            android:id="@+id/tv01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_tv02"
-            android:textColor="@color/colorAccentB"
-            android:textSize="@dimen/tl"
-            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/et01"
+            android:id="@+id/ed01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv01"
             android:layout_marginTop="@dimen/ds"
-            android:background="@drawable/fondo_editext"
+            android:background="@drawable/fondo_outline_corne"
             android:gravity="center"
-            android:inputType="phone"
-            android:outlineAmbientShadowColor="@color/colorAccentB"
-
+            android:textStyle="bold"
             android:paddingHorizontal="@dimen/dxl"
             android:paddingVertical="@dimen/ds"
+            android:hint="@string/usuario"
             android:textColor="@color/colorAccentB"
-            android:textCursorDrawable="@color/colorAccentB"
-            android:textSize="@dimen/txxl"
+            android:textSize="@dimen/txl"
 
             />
 
-        <Button
+        <EditText
+            android:id="@+id/ed02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ds"
+            android:background="@drawable/fondo_outline_corne"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:inputType="numberPassword"
+            android:paddingHorizontal="@dimen/dxl"
+            android:paddingVertical="@dimen/ds"
+            android:hint="@string/contraseña"
+            android:textColor="@color/colorAccentB"
+            android:textSize="@dimen/txl"
+            />
 
+        <Button
             android:id="@+id/btnOk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/fondo_btn_outline"
-            android:text="@string/btnOk"
-            android:textColor="@color/colorAccentB"
+            android:layout_marginTop="@dimen/dl"
+            android:background="@drawable/fondo_outline_corne"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingHorizontal="@dimen/dxl"
             android:paddingVertical="@dimen/ds"
-            android:textSize="@dimen/tl" />
+            android:text="@string/entrar"
+            android:textColor="@color/colorAccentB"
+            android:textSize="@dimen/txl"
+
+            />
 
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

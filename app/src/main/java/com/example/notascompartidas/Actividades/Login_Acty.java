@@ -2,106 +2,84 @@ package com.example.notascompartidas.Actividades;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.notascompartidas.R;
-import com.google.firebase.FirebaseException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthSettings;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-
-import java.util.concurrent.TimeUnit;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login_Acty extends AppCompatActivity {
-
+    private FirebaseAuth mAuth;
+    private  EditText edUsuario, edPass;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_login);
-        Button btnOk = findViewById(R.id.btnOk);
-        final EditText editText = findViewById(R.id.et01);
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        mAuth = FirebaseAuth.getInstance();
+
+          edUsuario = findViewById(R.id.ed01);
+          edPass = findViewById(R.id.ed02);
+
+
+        Button btnEntrar = findViewById(R.id.btnOk);
+        btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhoneVerify("57", editText.getText().toString());
-
+                verificarCuenta(edUsuario.getText().toString(), edPass.getText().toString());
+                edUsuario.setEnabled(false);
+                edPass.setEnabled(false);
             }
         });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        /*   updateUI(currentUser);*/
     }
 
 
-    public void testPhoneAutoRetrieve(String indice, String numero) {
-        StringBuilder celNumero = new StringBuilder();
-        celNumero.append("+");
-        celNumero.append(indice);
-        celNumero.append(numero);
-
-        String smsCode;
-
-        smsCode = String.valueOf((int) (Math.random() * 878879) + 100000);
-
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseAuthSettings firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
-
-        firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(celNumero.toString(), smsCode);
-
-        PhoneAuthProvider phoneAuthProvider = PhoneAuthProvider.getInstance();
-        phoneAuthProvider.verifyPhoneNumber(
-                celNumero.toString(),
-                60L,
-                TimeUnit.SECONDS,
-                this,
-                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private void verificarCuenta(String nick, String pass) {
+        mAuth.signInWithEmailAndPassword(nick, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onVerificationCompleted(PhoneAuthCredential credential) {
-                        startActivity(new Intent(Login_Acty.this, Main_Acty.class));
-                    }
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("login", "si");
+                            iniciarApp(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.d("login", "no");
+                            Toast.makeText(Login_Acty.this, R.string.erro_login, Toast.LENGTH_SHORT);
+                            edPass.setEnabled(true);
+                            edUsuario.setEnabled(true);
+                        }
 
-                    @Override
-                    public void onVerificationFailed(FirebaseException e) {
-                        Toast.makeText(Login_Acty.this, "Fallo, reIntente", Toast.LENGTH_LONG);
+                        // ...
                     }
-
                 });
-
     }
 
-    public void PhoneVerify(String indice, String numero) {
-        StringBuilder celNumero = new StringBuilder();
-        celNumero.append("+");
-        celNumero.append(indice);
-        celNumero.append(numero);
-
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                celNumero.toString(), 30L , TimeUnit.SECONDS,
-                this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-                    @Override
-                    public void onCodeSent(String verificationId,
-                                           PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        startActivity(new Intent(Login_Acty.this, Main_Acty.class));
-                    }
-
-                    @Override
-                    public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                        Toast.makeText(Login_Acty.this, "Fallo, reIntente", Toast.LENGTH_LONG);
-                    }
-
-                    @Override
-                    public void onVerificationFailed(FirebaseException e) {
-
-                    }
-
-                });
-
+    private void iniciarApp(FirebaseUser user) {
+        startActivity(new Intent(this, Listado_Acty.class));
     }
+
+
 }
