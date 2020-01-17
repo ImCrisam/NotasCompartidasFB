@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustResize"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Actividades.Listado_Acty"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:windowSoftInputMode="adjustResize">
+        <activity android:name=".Actividades.Login_Acty">
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +20,7 @@
         </activity>
 
         <activity android:name=".Actividades.Main_Acty"></activity>
-        <activity android:name=".Actividades.Login_Acty"></activity>
+        <activity android:name=".Actividades.Listado_Acty"></activity>
     </application>
 
 </manifest>

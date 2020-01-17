@@ -1,18 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".Actividades.Main_Acty">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcy01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dm"
+        android:paddingBottom="@dimen/dp_80"
+        android:clipToPadding="false"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gracias"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="@string/app_name"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/dm"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.transformation.TransformationChildCard
+        android:id="@+id/sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dm"
+        android:layout_marginTop="@dimen/dm"
+        android:layout_marginEnd="@dimen/dm"
+        android:layout_marginBottom="@dimen/ds"
+        android:visibility="invisible"
+        app:cardElevation="2dp"
+        app:layout_behavior="@string/fab_transformation_sheet_behavior">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:padding="@dimen/dm">
+
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dl"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_close_black_24dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/close_button"
+
+                android:hint="@string/nombre_card"
+                android:maxLines="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:maxLength="20"
+
+                    android:nextFocusDown="@id/edMensaje" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etTitulo"
+                android:layout_alignParentStart="true"
+                android:text="@string/descripcion" />
+
+            <TextView
+                android:id="@+id/tv02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etTitulo"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/edMensaje"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/btnOk"
+                android:layout_below="@+id/tv01"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swBlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edMensaje"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/dm" />
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/swBlock"
+                android:text="@string/aceptar" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.transformation.TransformationChildCard>
+    <TextView
+        android:id="@+id/tvVacio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/txxl"
+        android:text="@string/Vacio"
+        android:visibility="gone"
+        />
+
+    <ProgressBar
+        android:id="@+id/pb01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,13 +2,14 @@ package com.example.notascompartidas.Actividades;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -36,7 +37,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +60,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
     private RecyclerView recy;
     private boolean isExpan;
     private Estado estado;
+    private ProgressBar progressBar;
     private DatabaseReference db;
 
 
@@ -68,8 +69,8 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_listado);
         db = FirebaseDatabase.getInstance().getReference();
-
-        lista = getLista();
+        lista = new ArrayList<>();
+        getLista();
         isExpan = false;
 
         recy = findViewById(R.id.rcy01);
@@ -80,7 +81,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwiperControlador(adapter));
         itemTouchHelper.attachToRecyclerView(recy);
 
-
+        progressBar = findViewById(R.id.pb01);
         edMensaje = findViewById(R.id.edMensaje);
         edTitulo = findViewById(R.id.tiTitulo);
         switchCompat = findViewById(R.id.swBlock);
@@ -94,10 +95,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         appbar = findViewById(R.id.appbar);
         appbar.setOnMenuItemClickListener(this);
 
-        if (lista.size() == 0) {
-            estado = new Estado_Nuevo();
-            estado.mostar(null);
-        }
+
 
         fbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,26 +159,38 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         return mensaje;
     }
 
-    private List<Mensaje> getLista() {
-        final List<Mensaje> mensajes = new ArrayList<>();
-        db.child("Listas").child("id_lista").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Mensaje message = child.getValue(Mensaje.class);
-                    mensajes.add(message);
+    private void getLista() {
+        new Thread(new Runnable() {
+            public void run() {
+                lista = new ArrayList<>();
 
-                }
+                db.child("Listas").child("id_lista").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Mensaje message = child.getValue(Mensaje.class);
+                            lista.add(message);
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        setLayoutAdaptar(true);
+                        if (lista.size() == 0) {
+                            estado = new Estado_Nuevo();
+                            estado.mostar(null);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(Listado_Acty.this, "No hay conexion", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
             }
 
-            @Override
-            public void onCancelled(DatabaseError error)
-            {
-
-
-            }
-        });
-        return mensajes;
+        }).start();
     }
 
 
@@ -194,19 +204,24 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
                 break;
 
             case R.id.tamaño:
-                if (isExpan) {
-                    setLayoutAdaptar(lista, R.layout.item_listado_mensaje);
-
-                } else {
-                    setLayoutAdaptar(lista, R.layout.item_listado_mensaje_plus);
-                }
-                isExpan = !isExpan;
+                setLayoutAdaptar(isExpan);
                 break;
 
         }
 
         return false;
     }
+
+    private void setLayoutAdaptar(boolean type) {
+        if (type) {
+            setLayoutAdaptar(lista, R.layout.item_listado_mensaje);
+
+        } else {
+            setLayoutAdaptar(lista, R.layout.item_listado_mensaje_plus);
+        }
+        isExpan = !type;
+    }
+
 
     private void setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
         AdaptadorListado adapter = new AdaptadorListado(this, mensajes, layout, this);

@@ -48,9 +48,10 @@ public class Login_Acty extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        /*   updateUI(currentUser);*/
+        if (currentUser != null) {
+            iniciarApp(currentUser);
+        }
     }
 
 
@@ -67,7 +68,7 @@ public class Login_Acty extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.d("login", "no");
-                            Toast.makeText(Login_Acty.this, R.string.erro_login, Toast.LENGTH_SHORT);
+                            Toast.makeText(Login_Acty.this, R.string.erro_login, Toast.LENGTH_SHORT).show();
                             edPass.setEnabled(true);
                             edUsuario.setEnabled(true);
                         }
@@ -78,7 +79,12 @@ public class Login_Acty extends AppCompatActivity {
     }
 
     private void iniciarApp(FirebaseUser user) {
-        startActivity(new Intent(this, Listado_Acty.class));
+        Intent intent =new Intent();
+        intent.putExtra("UID", user.getUid());
+        Log.i("UID",user.getUid());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(new Intent(this, Main_Acty.class));
     }
 
 
