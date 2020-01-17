@@ -25,8 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Nombre del la nota"
-
+            android:text="Nombre de lista"
             android:textSize="@dimen/tm" />
 
         <TextView
@@ -37,18 +36,20 @@
             android:layout_alignParentRight="true"
             android:text="00/00/0000"
             android:textColor="@color/black"
+            android:visibility="gone"
             android:textSize="@dimen/txs" />
 
-        <TextView
-            android:id="@+id/tv03"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv01"
-            android:layout_marginTop="@dimen/ds"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="corto del mensaje"
-            android:textSize="@dimen/ts" />
+       <LinearLayout
+           android:id="@+id/ly01"
+           android:layout_below="@id/tv01"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/dm"
+           android:gravity="start"
+           android:orientation="vertical">
+
+
+       </LinearLayout>
 
     </RelativeLayout>
 

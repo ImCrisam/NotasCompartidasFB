@@ -1,6 +1,6 @@
 package com.example.notascompartidas.Modelos;
 
-class Usuarios {
+public class Usuarios {
 
     private String nombre;
     private String nick;

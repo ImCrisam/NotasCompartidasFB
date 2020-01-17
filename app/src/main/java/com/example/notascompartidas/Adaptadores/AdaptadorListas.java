@@ -5,48 +5,52 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.notascompartidas.Modelos.Mensaje;
-import com.example.notascompartidas.OnClickMensaje;
-import com.example.notascompartidas.R;
+import com.example.notascompartidas.Adaptadores.ViewHolder.ViewHolder_listas;
+import com.example.notascompartidas.Modelos.Lista;
+import com.example.notascompartidas.Modelos.Usuarios;
+import com.example.notascompartidas.OnclickRecy;
 
 import java.util.List;
 
-public class AdaptadorListas extends RecyclerView.Adapter<AdaptadorListas.ViewHolder>   {
+public class AdaptadorListas extends RecyclerView.Adapter<ViewHolder_listas>   {
 
     private Context ctx;
-    private List<Mensaje> lista;
+    private List<Lista> lista;
     private int layout;
-    private OnClickMensaje onClickMensaje;
+    private OnclickRecy.OnClickLista onClickLista;
+    private TextView tv;
 
-    public AdaptadorListas(Context ctx, List<Mensaje> lista, int layout, OnClickMensaje onClickMensaje) {
+    public AdaptadorListas(Context ctx, List<Lista> lista, int layout, OnclickRecy.OnClickLista onClickLista) {
         this.ctx = ctx;
         this.lista = lista;
         this.layout = layout;
-        this.onClickMensaje = onClickMensaje;
+        this.onClickLista = onClickLista;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder_listas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder_listas(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        final Mensaje item = lista.get(position);
-        holder.nombre.setText(item.getNombre());
-        holder.cuerpo.setText(item.getCuerpo());
-        holder.fecha.setText(item.getFecha());
+    public void onBindViewHolder(@NonNull ViewHolder_listas holder, final int position) {
+        final Lista item = lista.get(position);
+        holder.nombre.setText(item.getInfo().getNombre());
+        if (item.getUsuarios() != null) {
+            for (Usuarios usuario : item.getUsuarios()) {
+                tv= new TextView(ctx);
+                tv.setText(usuario.getNombre());
+                holder.linearLayout.addView(tv);
+            }
+        }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickMensaje.onClickMensaje(item, position);
+            onClickLista.OnClickLista(item, position);
             }
         });
 
@@ -61,26 +65,9 @@ public class AdaptadorListas extends RecyclerView.Adapter<AdaptadorListas.ViewHo
         lista.remove(position);
     }
 
-    public List<Mensaje> getLista() {
+    public List<Lista> getLista() {
         return lista;
     }
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre;
-        TextView cuerpo;
-        TextView fecha;
-        CardView cardView;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nombre = itemView.findViewById(R.id.tvnombre);
-            cuerpo = itemView.findViewById(R.id.tvCuerpo);
-            fecha = itemView.findViewById(R.id.tvFecha);
-            cardView = itemView.findViewById(R.id.cardView);
-
-        }
-    }
 }
 

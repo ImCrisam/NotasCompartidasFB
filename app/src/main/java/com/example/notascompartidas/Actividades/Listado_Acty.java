@@ -26,7 +26,7 @@ import com.example.notascompartidas.Modelos.Estados.Estado_Editable;
 import com.example.notascompartidas.Modelos.Estados.Estado_Nuevo;
 import com.example.notascompartidas.Modelos.Estados.Estado_Vista;
 import com.example.notascompartidas.Modelos.Mensaje;
-import com.example.notascompartidas.OnClickMensaje;
+import com.example.notascompartidas.OnclickRecy;
 import com.example.notascompartidas.R;
 import com.example.notascompartidas.SwiperControlador;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -44,7 +44,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnClickMensaje {
+public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnclickRecy.OnClickMensaje {
 
     protected static EditText edMensaje;
     protected static EditText edTitulo;

@@ -4,26 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notascompartidas.Adaptadores.ViewHolder.ViewHolder_mensaje;
 import com.example.notascompartidas.Modelos.Mensaje;
-import com.example.notascompartidas.OnClickMensaje;
-import com.example.notascompartidas.R;
+import com.example.notascompartidas.OnclickRecy;
 
 import java.util.List;
 
-public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ViewHolder>   {
+public class AdaptadorLista extends RecyclerView.Adapter<ViewHolder_mensaje>   {
 
     private Context ctx;
     private List<Mensaje> lista;
     private int layout;
-    private OnClickMensaje onClickMensaje;
+    private OnclickRecy.OnClickMensaje onClickMensaje;
 
-    public AdaptadorLista(Context ctx, List<Mensaje> lista, int layout, OnClickMensaje onClickMensaje) {
+    public AdaptadorLista(Context ctx, List<Mensaje> lista, int layout, OnclickRecy.OnClickMensaje onClickMensaje) {
         this.ctx = ctx;
         this.lista = lista;
         this.layout = layout;
@@ -32,13 +30,13 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ViewHold
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder_mensaje onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder_mensaje(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder_mensaje holder, final int position) {
         final Mensaje item = lista.get(position);
         holder.nombre.setText(item.getNombre());
         holder.cuerpo.setText(item.getCuerpo());
@@ -66,21 +64,5 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ViewHold
     }
 
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre;
-        TextView cuerpo;
-        TextView fecha;
-        CardView cardView;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nombre = itemView.findViewById(R.id.tvnombre);
-            cuerpo = itemView.findViewById(R.id.tvCuerpo);
-            fecha = itemView.findViewById(R.id.tvFecha);
-            cardView = itemView.findViewById(R.id.cardView);
-
-        }
-    }
 }
 

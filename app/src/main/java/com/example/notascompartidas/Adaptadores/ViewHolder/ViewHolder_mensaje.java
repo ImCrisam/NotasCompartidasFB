@@ -10,23 +10,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notascompartidas.R;
 
-public class ViewHolder_mensaje extends RecyclerView.ViewHolder implements ViewHolders {
+public class ViewHolder_mensaje extends RecyclerView.ViewHolder {
 
 
-     TextView nombre;
-     TextView cuerpo;
-     TextView fecha;
-     CardView cardView;
-
-     private Drawable layout;
+    public TextView nombre;
+    public TextView cuerpo;
+    public TextView fecha;
+    public CardView cardView;
+    private Drawable layout;
 
 
     public ViewHolder_mensaje(@NonNull View itemView) {
         super(itemView);
-        nombre = itemView.findViewById(R.id.tvnombre);
-        cuerpo = itemView.findViewById(R.id.tvCuerpo);
-        fecha = itemView.findViewById(R.id.tvFecha);
-        cardView = itemView.findViewById(R.id.cardView);
+
+        try {
+            nombre = itemView.findViewById(R.id.tv01);
+            cuerpo = itemView.findViewById(R.id.tv03);
+            fecha = itemView.findViewById(R.id.tv02);
+            cardView = itemView.findViewById(R.id.cardView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Drawable getLayout() {
