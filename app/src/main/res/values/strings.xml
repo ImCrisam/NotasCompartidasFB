@@ -18,4 +18,5 @@
     <string name="contraseña">Contraseña</string>
     <string name="entrar">Entrar</string>
     <string name="erro_login">Usuario o contraseña incorrecta</string>
+    <string name="logout">cerrar session</string>
 </resources>

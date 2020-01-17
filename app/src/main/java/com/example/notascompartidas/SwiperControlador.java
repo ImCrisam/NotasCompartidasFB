@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notascompartidas.Adaptadores.AdaptadorListado;
+import com.example.notascompartidas.Adaptadores.AdaptadorLista;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
@@ -13,9 +13,9 @@ import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 
 public class SwiperControlador extends ItemTouchHelper.Callback {
 
-    AdaptadorListado adapter;
+    AdaptadorLista adapter;
 
-    public  SwiperControlador(AdaptadorListado adapter) {
+    public  SwiperControlador(AdaptadorLista adapter) {
         this.adapter = adapter;
     }
 

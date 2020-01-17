@@ -7,15 +7,37 @@
     android:fitsSystemWindows="true"
     tools:context=".Actividades.Main_Acty">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcy01"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dm"
-        android:paddingBottom="@dimen/dp_80"
-        android:clipToPadding="false"
-        />
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/tool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logout" />
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcy01"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dm"
+            android:paddingBottom="@dimen/dp_80"
+            android:clipToPadding="false" />
+
+
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbtn"
         android:layout_width="wrap_content"
@@ -121,6 +143,7 @@
 
         </RelativeLayout>
     </com.google.android.material.transformation.TransformationChildCard>
+
     <TextView
         android:id="@+id/tvVacio"
         android:layout_width="match_parent"
@@ -128,13 +151,11 @@
         android:gravity="center"
         android:textSize="@dimen/txxl"
         android:text="@string/Vacio"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/pb01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
+        android:layout_gravity="center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

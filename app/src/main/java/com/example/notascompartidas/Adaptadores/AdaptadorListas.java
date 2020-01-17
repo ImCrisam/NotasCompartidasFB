@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,14 +16,14 @@ import com.example.notascompartidas.R;
 
 import java.util.List;
 
-public class AdaptadorListado extends RecyclerView.Adapter<AdaptadorListado.ViewHolder>   {
+public class AdaptadorListas extends RecyclerView.Adapter<AdaptadorListas.ViewHolder>   {
 
     private Context ctx;
     private List<Mensaje> lista;
     private int layout;
     private OnClickMensaje onClickMensaje;
 
-    public AdaptadorListado(Context ctx, List<Mensaje> lista, int layout, OnClickMensaje onClickMensaje) {
+    public AdaptadorListas(Context ctx, List<Mensaje> lista, int layout, OnClickMensaje onClickMensaje) {
         this.ctx = ctx;
         this.lista = lista;
         this.layout = layout;

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notascompartidas.Adaptadores.AdaptadorListado;
+import com.example.notascompartidas.Adaptadores.AdaptadorLista;
 import com.example.notascompartidas.Modelos.Estados.Estado;
 import com.example.notascompartidas.Modelos.Estados.Estado_Editable;
 import com.example.notascompartidas.Modelos.Estados.Estado_Nuevo;
@@ -75,7 +75,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
         recy = findViewById(R.id.rcy01);
         recy.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        AdaptadorListado adapter = new AdaptadorListado(this, lista, R.layout.item_listado_mensaje, this);
+        AdaptadorLista adapter = new AdaptadorLista(this, lista, R.layout.item_listado_mensaje, this);
         recy.setAdapter(adapter);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwiperControlador(adapter));
@@ -224,7 +224,7 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
 
 
     private void setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
-        AdaptadorListado adapter = new AdaptadorListado(this, mensajes, layout, this);
+        AdaptadorLista adapter = new AdaptadorLista(this, mensajes, layout, this);
         recy.setAdapter(adapter);
 
     }
