@@ -9,7 +9,7 @@ public interface OnclickRecy {
     }
 
     interface OnClickLista {
-        void OnClickLista(Lista Lista, int position);
+        void OnClickLista(Lista lista, int position);
     }
 }
 

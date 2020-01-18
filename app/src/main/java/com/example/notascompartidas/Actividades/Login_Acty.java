@@ -81,7 +81,6 @@ public class Login_Acty extends AppCompatActivity {
     }
 
     private void iniciarApp(FirebaseUser user) {
-        Listas_Usuario_sgt.getInstance().init();
         Intent intent =new Intent();
         Fire fire = new Fire();
         fire.llenarLista_usuario_sgt(user.getUid());

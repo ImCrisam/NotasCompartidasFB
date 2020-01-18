@@ -2,11 +2,11 @@ package com.example.notascompartidas.Modelos.Estados;
 
 import android.view.View;
 
-import com.example.notascompartidas.Actividades.Listado_Acty;
+import com.example.notascompartidas.Actividades.Lista_Acty;
 import com.example.notascompartidas.Modelos.Mensaje;
 import com.example.notascompartidas.R;
 
-public abstract class Estados extends Listado_Acty implements Estado{
+public abstract class Estados extends Lista_Acty implements Estado{
 
     @Override
     public void ocultar(boolean isGuardarTemporal) {

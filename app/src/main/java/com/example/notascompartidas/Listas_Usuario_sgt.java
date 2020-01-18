@@ -8,16 +8,14 @@ import java.util.List;
 public class Listas_Usuario_sgt {
 
     private static final Listas_Usuario_sgt ourInstance = new Listas_Usuario_sgt();
+    private List<Lista> listas = new ArrayList<>();
+    private Lista lista_en_uso;
+
+
     public static Listas_Usuario_sgt getInstance() {
         return ourInstance;
     }
 
-    private List<Lista> listas;
-    public void init() {
-        if (listas == null) {
-            listas = new ArrayList<>();
-        }
-    }
 
     private Listas_Usuario_sgt() {
         listas = new ArrayList<>();
@@ -41,5 +39,13 @@ public class Listas_Usuario_sgt {
 
     public void resetListas() {
         listas = new ArrayList<>();
+    }
+
+    public Lista getLista_en_uso() {
+        return lista_en_uso;
+    }
+
+    public void setLista_en_uso(Lista lista_en_uso) {
+        this.lista_en_uso = lista_en_uso;
     }
 }

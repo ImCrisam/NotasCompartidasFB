@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -21,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notascompartidas.Adaptadores.AdaptadorLista;
+import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.Modelos.Estados.Estado;
 import com.example.notascompartidas.Modelos.Estados.Estado_Editable;
 import com.example.notascompartidas.Modelos.Estados.Estado_Nuevo;
@@ -31,20 +31,16 @@ import com.example.notascompartidas.R;
 import com.example.notascompartidas.SwiperControlador;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnclickRecy.OnClickMensaje {
+public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnclickRecy.OnClickMensaje {
 
     protected static EditText edMensaje;
     protected static EditText edTitulo;
@@ -69,8 +65,8 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_listado);
         db = FirebaseDatabase.getInstance().getReference();
-        lista = new ArrayList<>();
-        getLista();
+        lista = Listas_Usuario_sgt.getInstance().getLista_en_uso().getMensajes();
+
         isExpan = false;
 
         recy = findViewById(R.id.rcy01);
@@ -157,40 +153,6 @@ public class Listado_Acty extends AppCompatActivity implements Toolbar.OnMenuIte
         }
         mensaje.setRank("0");
         return mensaje;
-    }
-
-    private void getLista() {
-        new Thread(new Runnable() {
-            public void run() {
-                lista = new ArrayList<>();
-
-                db.child("Listas").child("id_lista").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            Mensaje message = child.getValue(Mensaje.class);
-                            lista.add(message);
-                        }
-                        progressBar.setVisibility(View.GONE);
-                        setLayoutAdaptar(true);
-                        if (lista.size() == 0) {
-                            estado = new Estado_Nuevo();
-                            estado.mostar(null);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(Listado_Acty.this, "No hay conexion", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-            }
-
-        }).start();
     }
 
 
