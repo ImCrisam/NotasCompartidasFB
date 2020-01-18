@@ -13,6 +13,11 @@ public class Listas_Usuario_sgt {
     }
 
     private List<Lista> listas;
+    public void init() {
+        if (listas == null) {
+            listas = new ArrayList<>();
+        }
+    }
 
     private Listas_Usuario_sgt() {
         listas = new ArrayList<>();
@@ -20,10 +25,6 @@ public class Listas_Usuario_sgt {
 
     public Listas_Usuario_sgt(List<Lista> listas) {
         this.listas = listas;
-    }
-
-    public static Listas_Usuario_sgt getOurInstance() {
-        return ourInstance;
     }
 
     public List<Lista> getListas() {
@@ -36,5 +37,9 @@ public class Listas_Usuario_sgt {
 
     public void addToListas(Lista lista) {
         listas.add(lista);
+    }
+
+    public void resetListas() {
+        listas = new ArrayList<>();
     }
 }

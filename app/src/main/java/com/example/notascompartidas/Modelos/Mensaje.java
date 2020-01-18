@@ -7,6 +7,7 @@ public class Mensaje {
     private String cuerpo;
     private String rank;
     private String por;
+    private String id;
 
     public Mensaje() {
     }
@@ -62,5 +63,13 @@ public class Mensaje {
 
     public void setPor(String por) {
         this.por = por;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

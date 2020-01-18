@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.notascompartidas.Fire;
+import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -79,11 +81,13 @@ public class Login_Acty extends AppCompatActivity {
     }
 
     private void iniciarApp(FirebaseUser user) {
+        Listas_Usuario_sgt.getInstance().init();
         Intent intent =new Intent();
-        intent.putExtra("UID", user.getUid());
+        Fire fire = new Fire();
+        fire.llenarLista_usuario_sgt(user.getUid());
         Log.i("UID",user.getUid());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("UID", user.getUid());
         startActivity(new Intent(this, Main_Acty.class));
     }
 

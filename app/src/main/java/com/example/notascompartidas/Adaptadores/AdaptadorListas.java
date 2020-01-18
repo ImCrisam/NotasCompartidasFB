@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.notascompartidas.Adaptadores.ViewHolder.ViewHolder_listas;
 import com.example.notascompartidas.Modelos.Lista;
-import com.example.notascompartidas.Modelos.Usuarios;
 import com.example.notascompartidas.OnclickRecy;
 
 import java.util.List;
@@ -38,10 +37,10 @@ public class AdaptadorListas extends RecyclerView.Adapter<ViewHolder_listas>   {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder_listas holder, final int position) {
-        final Lista item = lista.get(position);
+    /*    final Lista item = lista.get(position);
         holder.nombre.setText(item.getInfo().getNombre());
         if (item.getUsuarios() != null) {
-            for (Usuarios usuario : item.getUsuarios()) {
+            for (Usuario usuario : item.getUsuarios()) {
                 tv= new TextView(ctx);
                 tv.setText(usuario.getNombre());
                 holder.linearLayout.addView(tv);
@@ -53,7 +52,7 @@ public class AdaptadorListas extends RecyclerView.Adapter<ViewHolder_listas>   {
             onClickLista.OnClickLista(item, position);
             }
         });
-
+*/
     }
 
     @Override

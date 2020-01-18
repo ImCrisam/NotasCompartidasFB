@@ -1,27 +1,32 @@
 package com.example.notascompartidas.Modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lista {
 
-     private List<Usuarios> usuarios;
+     private List<Usuario> usuarios;
      private List<Mensaje> mensajes;
      private Info info;
+     private String type;
+
 
     public Lista() {
+        mensajes = new ArrayList<>();
+        usuarios = new ArrayList<>();
     }
 
-    public Lista(List<Usuarios> usuarios, List<Mensaje> mensajes, Info info) {
+    public Lista(List<Usuario> usuarios, List<Mensaje> mensajes, Info info) {
         this.usuarios = usuarios;
         this.mensajes = mensajes;
         this.info = info;
     }
 
-    public List<Usuarios> getUsuarios() {
+    public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<Usuarios> usuarios) {
+    public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
 
@@ -39,5 +44,22 @@ public class Lista {
 
     public void setInfo(Info info) {
         this.info = info;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void addMensaje(Mensaje mensaje) {
+        mensajes.add(mensaje);
+    }
+
+    public void addUsuario(Usuario usuario) {
+        usuarios.add(usuario);
+
     }
 }
