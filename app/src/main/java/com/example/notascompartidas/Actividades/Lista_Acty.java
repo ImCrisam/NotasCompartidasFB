@@ -19,12 +19,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista;
 import com.example.notascompartidas.Adaptadores.AdaptadorLista;
 import com.example.notascompartidas.Listas_Usuario_sgt;
-import com.example.notascompartidas.Modelos.Estados.Estado;
-import com.example.notascompartidas.Modelos.Estados.Estado_Editable;
-import com.example.notascompartidas.Modelos.Estados.Estado_Nuevo;
-import com.example.notascompartidas.Modelos.Estados.Estado_Vista;
+import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_Editable;
+import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_Nuevo;
+import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_Vista;
 import com.example.notascompartidas.Modelos.Mensaje;
 import com.example.notascompartidas.OnclickRecy;
 import com.example.notascompartidas.R;
@@ -55,7 +55,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
     protected static List<Mensaje> lista;
     private RecyclerView recy;
     private boolean isExpan;
-    private Estado estado;
+    private Estado_lista estadoLista;
     private ProgressBar progressBar;
     private DatabaseReference db;
 
@@ -97,11 +97,11 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
             @Override
             public void onClick(View v) {
                 if (fbtn.isExpanded()) {
-                    estado.ocultar(false);
+                    estadoLista.ocultar(false);
 
                 } else {
-                    estado = new Estado_Nuevo();
-                    estado.mostar(null);
+                    estadoLista = new Estado_lista_Nuevo();
+                    estadoLista.mostar(null);
                 }
             }
         });
@@ -109,7 +109,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                estado.ocultar(switchCompat.isChecked());
+                estadoLista.ocultar(switchCompat.isChecked());
 
             }
         });
@@ -121,7 +121,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
                 Mensaje m = getMensajeCard(null);
                 if (m != null) {
                     lista.add(m);
-                    estado.ocultar(false);
+                    estadoLista.ocultar(false);
 
                 }
             }
@@ -199,10 +199,10 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
     @Override
     public void onClickMensaje(Mensaje mensaje, int position) {
         if (isExpan) {
-            estado = new Estado_Editable();
+            estadoLista = new Estado_lista_Editable();
         } else {
-            estado = new Estado_Vista();
+            estadoLista = new Estado_lista_Vista();
         }
-        estado.mostar(mensaje);
+        estadoLista.mostar(mensaje);
     }
 }

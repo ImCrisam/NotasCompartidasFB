@@ -54,6 +54,14 @@ public class AdaptadorListas extends RecyclerView.Adapter<ViewHolder_listas>   {
             onClickLista.OnClickLista(item, position);
             }
         });
+
+        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onClickLista.OnLongClickLista(item, position);
+                return true;
+            }
+        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.notascompartidas;
 
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.Modelos.Mensaje;
+import com.example.notascompartidas.Modelos.Usuario;
 
 public interface OnclickRecy {
     interface OnClickMensaje {
@@ -10,7 +11,16 @@ public interface OnclickRecy {
 
     interface OnClickLista {
         void OnClickLista(Lista lista, int position);
+        void OnLongClickLista(Lista lista, int position);
     }
+
+    interface OnClickUsuarios {
+        void OnClickEditar(Usuario usuario, int position);
+        void OnClickBorrar(Usuario usuario, int position);
+
+    }
+
+
 }
 
 

@@ -1,8 +1,8 @@
-package com.example.notascompartidas.Modelos.Estados;
+package com.example.notascompartidas.Actividades.Lista_Acty_Estados;
 
 import com.example.notascompartidas.Modelos.Mensaje;
 
-public interface Estado {
+public interface Estado_lista {
 
     void ocultar(boolean isGuardarTemporal);
     void mostar(Mensaje mensaje);

@@ -33,18 +33,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dm"
-            android:paddingBottom="@dimen/dp_80"
-            android:clipToPadding="false" />
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/dp_80" />
 
 
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/dm"
+        android:contentDescription="@string/app_name"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
     <com.google.android.material.transformation.TransformationChildCard
@@ -66,15 +67,7 @@
             android:layout_gravity="top"
             android:padding="@dimen/dm">
 
-            <ImageButton
-                android:id="@+id/close_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:padding="@dimen/dl"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_close_black_24dp" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etTitulo"
@@ -82,8 +75,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_toStartOf="@id/close_button"
-
                 android:hint="@string/nombre_card"
                 android:maxLines="1">
 
@@ -92,19 +83,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1"
                     android:maxLength="20"
+                    android:maxLines="1"
 
                     android:nextFocusDown="@id/edMensaje" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/rlcotenedor"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@+id/etTitulo"
+                android:layout_marginTop="@dimen/ds"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <EditText
+                    android:id="@+id/ed03"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:text="@string/usuario" />
+                <Spinner
+                    android:id="@+id/spi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
+                <ImageButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/ic_close_black_24dp" />
+
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tv01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/etTitulo"
+                android:layout_below="@+id/rlcotenedor"
                 android:layout_alignParentStart="true"
-                android:text="@string/descripcion" />
+                android:text="@string/usuarios" />
 
             <TextView
                 android:id="@+id/tv02"
@@ -113,32 +137,41 @@
                 android:layout_below="@+id/etTitulo"
                 android:layout_alignParentEnd="true" />
 
-            <EditText
-                android:id="@+id/edMensaje"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcy02"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/btnOk"
+                android:layout_above="@id/ly02"
                 android:layout_below="@+id/tv01"
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/swBlock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/edMensaje"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/dm" />
 
-            <Button
-                android:id="@+id/btnOk"
+            <LinearLayout
+                android:id="@+id/ly02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/swBlock"
-                android:text="@string/aceptar" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_weight="3"
+                    android:id="@+id/btnOk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/swBlock"
+                    android:text="@string/aceptar" />
+
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/close_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancelar"
+                     />
+
+            </LinearLayout>
+
 
 
         </RelativeLayout>
@@ -149,14 +182,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="@dimen/txxl"
         android:text="@string/Vacio"
+        android:textSize="@dimen/txxl"
         android:visibility="gone" />
 
     <ProgressBar
-        android:visibility="visible"
         android:id="@+id/pb01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

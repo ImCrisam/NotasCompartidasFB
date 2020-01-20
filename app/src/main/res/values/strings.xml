@@ -19,4 +19,7 @@
     <string name="entrar">Entrar</string>
     <string name="erro_login">Usuario o contraseña incorrecta</string>
     <string name="logout">cerrar session</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="btnok_smal">Ok</string>
+    <string name="cancelar">Cancelar</string>
 </resources>
