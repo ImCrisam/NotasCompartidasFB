@@ -19,19 +19,19 @@ public class Fire {
 
     }
 
-    public void llenarLista_usuario_sgt(String uid) {
+    public boolean llenarLista_usuario_sgt(String uid) {
         Listas_Usuario_sgt.getInstance().resetListas();
-        getIds_listas(uid);
-
+        return getIds_listas(uid);
     }
 
     Mensaje mensaje;
     Usuario usuario;
     DatabaseReference db2;
+
     private void getLista_singel(String idLista, String type) {
         listaItem = new Lista();
         listaItem.setType(type);
-        db2= FirebaseDatabase.getInstance().getReference("Listas");
+        db2 = FirebaseDatabase.getInstance().getReference("Listas");
         db2.child(idLista).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -47,8 +47,6 @@ public class Fire {
                     listaItem.addUsuario(usuario);
                 }
                 Listas_Usuario_sgt.getInstance().addToListas(listaItem);
-                Listas_Usuario_sgt listas_usuario_sgt = Listas_Usuario_sgt.getInstance();
-                System.out.println("asdsad");
             }
 
             @Override
@@ -56,17 +54,20 @@ public class Fire {
                 listaItem = new Lista();
 
             }
+
+
         });
 
     }
 
-    private void getIds_listas(String uid) {
+    private boolean getIds_listas(String uid) {
         db.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     getLista_singel(item.getKey(), item.getValue(String.class));
                 }
+
             }
 
             @Override
@@ -74,6 +75,7 @@ public class Fire {
 
             }
         });
+        return true;
     }
 
 }

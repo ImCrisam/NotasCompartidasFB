@@ -82,12 +82,10 @@ public class Login_Acty extends AppCompatActivity {
 
     private void iniciarApp(FirebaseUser user) {
         Intent intent =new Intent();
-        Fire fire = new Fire();
-        fire.llenarLista_usuario_sgt(user.getUid());
-        Log.i("UID",user.getUid());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("UID", user.getUid());
-        startActivity(new Intent(this, Main_Acty.class));
+        intent.setClass(this, Main_Acty.class);
+        intent.putExtra("user", user.getUid());
+        startActivity(intent);
     }
 
 

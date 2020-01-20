@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Actividades.Main_Acty"></activity>
-        <activity android:name=".Actividades.Lista_Acty"></activity>
+        <activity android:name=".Actividades.Main_Acty" />
+        <activity android:name=".Actividades.Lista_Acty" />
     </application>
 
 </manifest>
