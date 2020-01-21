@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface Estado_main {
 
-    void ocultar(boolean isGuardarTemporal);
+    void ocultar();
     void mostar(Lista lista);
     void bntOk();
 

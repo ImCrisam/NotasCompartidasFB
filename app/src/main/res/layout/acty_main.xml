@@ -154,6 +154,8 @@
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
+
+
                 <Button
                     android:layout_weight="3"
                     android:id="@+id/btnOk"

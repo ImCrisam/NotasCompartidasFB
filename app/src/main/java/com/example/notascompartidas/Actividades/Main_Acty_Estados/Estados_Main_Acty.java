@@ -20,7 +20,8 @@ public abstract class Estados_Main_Acty extends Main_Acty implements Estado_main
 
 
     @Override
-    public void ocultar(boolean isGuardarTemporal) {
+    public void ocultar( ) {
+        btnf.setExpanded(false);
 
     }
 

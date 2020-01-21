@@ -3,14 +3,20 @@ package com.example.notascompartidas.Actividades.Main_Acty_Estados;
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.Modelos.Usuario;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Estado_main_Nuevo extends Estados_Main_Acty {
 
     private Usuario usuario;
+
     @Override
-    public void ocultar(boolean isGuardarTemporal) {
-        super.ocultar(isGuardarTemporal);
+    public void ocultar() {
+        super.ocultar();
+
+        ednombre.setText("");
+        spinner.setSelected(false);
+        usuarios = new ArrayList<>();
+
     }
 
     @Override

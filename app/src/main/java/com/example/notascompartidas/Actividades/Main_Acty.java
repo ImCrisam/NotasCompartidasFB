@@ -1,9 +1,5 @@
 package com.example.notascompartidas.Actividades;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +7,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.notascompartidas.Actividades.Main_Acty_Estados.Estado_main;
 import com.example.notascompartidas.Actividades.Main_Acty_Estados.Estado_main_Editar;
 import com.example.notascompartidas.Actividades.Main_Acty_Estados.Estado_main_Nuevo;
-import com.example.notascompartidas.Actividades.Main_Acty_Estados.Estado_main;
 import com.example.notascompartidas.ActualizarUI;
 import com.example.notascompartidas.Adaptadores.AdaptadorListas;
 import com.example.notascompartidas.Descargar_Listados;
@@ -25,8 +27,6 @@ import com.example.notascompartidas.OnclickRecy;
 import com.example.notascompartidas.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
 
 public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickLista, ActualizarUI, OnclickRecy.OnClickUsuarios {
 
@@ -43,7 +43,6 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
     protected static RecyclerView rcyUsuarios;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,16 +56,12 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
         ednombre = findViewById(R.id.ed03);
         spinner = findViewById(R.id.spi);
 
-
         recyclerView = findViewById(R.id.rcy01);
         estado_main = new Estado_main_Nuevo();
 
 
-
         final String extra = getIntent().getExtras().getString("user", null);
         new Descargar_Listados(this).execute(extra);
-
-
 
 
         btnf = findViewById(R.id.fbtn);
@@ -92,7 +87,7 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnf.setExpanded(false);
+                estado_main.ocultar();
             }
         });
 
@@ -120,9 +115,9 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
 
     @Override
     public void terminarDescarga(boolean isOk) {
-        adptador= new AdaptadorListas(Main_Acty.this, Listas_Usuario_sgt.getInstance().getListas(), R.layout.item_lista, Main_Acty.this);
+        adptador = new AdaptadorListas(Main_Acty.this, Listas_Usuario_sgt.getInstance().getListas(), R.layout.item_lista, Main_Acty.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(Main_Acty.this, RecyclerView.HORIZONTAL, true));
-        recyclerView.setAdapter( adptador);
+        recyclerView.setAdapter(adptador);
         progressBar.setVisibility(View.GONE);
 
     }

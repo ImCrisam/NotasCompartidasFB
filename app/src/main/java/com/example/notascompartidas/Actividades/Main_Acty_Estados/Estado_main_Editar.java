@@ -1,5 +1,7 @@
 package com.example.notascompartidas.Actividades.Main_Acty_Estados;
 
+import android.view.View;
+
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.Modelos.Usuario;
 
@@ -7,8 +9,8 @@ import com.example.notascompartidas.Modelos.Usuario;
 public class Estado_main_Editar extends Estados_Main_Acty{
 
     @Override
-    public void ocultar(boolean isGuardarTemporal) {
-        super.ocultar(isGuardarTemporal);
+    public void ocultar() {
+        super.ocultar();
     }
 
     @Override
