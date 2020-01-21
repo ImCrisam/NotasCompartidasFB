@@ -69,6 +69,7 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
             @Override
             public void onClick(View v) {
                 estado_main = new Estado_main_Nuevo();
+                btnok.setImageDrawable(getDrawable(R.drawable.ic_addsuer));
                 estado_main.mostar(new Lista());
 
             }
@@ -110,6 +111,7 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
     @Override
     public void OnLongClickLista(Lista lista, int position) {
         estado_main = new Estado_main_Editar();
+        btnok.setImageDrawable(getDrawable(R.drawable.ic_check_black_24dp));
         estado_main.mostar(lista);
     }
 

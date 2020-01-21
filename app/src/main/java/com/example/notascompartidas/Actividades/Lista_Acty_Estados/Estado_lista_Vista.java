@@ -6,6 +6,7 @@ import com.example.notascompartidas.Modelos.Mensaje;
 import com.example.notascompartidas.R;
 
 public class Estado_lista_Vista extends Estados_Lista_Acty {
+    private int position;
     @Override
     public void ocultar(boolean isGuardarTemporal) {
         fbtn.setExpanded(false);
@@ -16,8 +17,9 @@ public class Estado_lista_Vista extends Estados_Lista_Acty {
     }
 
     @Override
-    public void mostar(Mensaje mensaje) {
-        super.mostar(mensaje);
+    public void mostar(Mensaje mensaje, int position) {
+        super.mostar(mensaje, position);
+        position = position;
         btnOk.setText(R.string.editar);
         edMensaje.setEnabled(false);
         edTitulo.setEnabled(false);
@@ -29,6 +31,7 @@ public class Estado_lista_Vista extends Estados_Lista_Acty {
 
     @Override
     public void bntOk() {
-        ocultar(false);
+        estadoLista = new Estado_lista_Editable();
+        estadoLista.mostar(getMensajeCard(null), position);
     }
 }

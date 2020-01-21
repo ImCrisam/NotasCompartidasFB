@@ -34,7 +34,7 @@ public abstract class Estados_Lista_Acty extends Lista_Acty implements Estado_li
     }
 
     @Override
-    public void mostar(Mensaje mensaje) {
+    public void mostar(Mensaje mensaje, int position) {
         edMensaje.setEnabled(true);
         edTitulo.setEnabled(true);
         btnOk.setText(R.string.aceptar);

@@ -14,8 +14,8 @@ public class Estado_lista_Nuevo extends Estados_Lista_Acty {
     }
 
     @Override
-    public void mostar(Mensaje mensaje) {
-        super.mostar(mensaje);
+    public void mostar(Mensaje mensaje, int position) {
+        super.mostar(mensaje, position);
         edTitulo.requestFocus();
         tvfecha.setVisibility(View.INVISIBLE);
         imm.showSoftInput(edTitulo, InputMethodManager.SHOW_IMPLICIT);

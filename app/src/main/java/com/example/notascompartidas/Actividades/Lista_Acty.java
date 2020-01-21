@@ -55,7 +55,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
     protected static List<Mensaje> lista;
     private RecyclerView recy;
     private boolean isExpan;
-    private Estado_lista estadoLista;
+    protected static Estado_lista estadoLista;
     private ProgressBar progressBar;
     private DatabaseReference db;
 
@@ -101,7 +101,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
 
                 } else {
                     estadoLista = new Estado_lista_Nuevo();
-                    estadoLista.mostar(null);
+                    estadoLista.mostar(null, 0);
                 }
             }
         });
@@ -117,13 +117,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Mensaje m = getMensajeCard(null);
-                if (m != null) {
-                    lista.add(m);
-                    estadoLista.ocultar(false);
-
-                }
+                estadoLista.bntOk();
             }
         });
 
@@ -203,6 +197,6 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         } else {
             estadoLista = new Estado_lista_Vista();
         }
-        estadoLista.mostar(mensaje);
+        estadoLista.mostar(mensaje, position);
     }
 }
