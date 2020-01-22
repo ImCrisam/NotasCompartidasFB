@@ -20,14 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista;
-import com.example.notascompartidas.Adaptadores.AdaptadorLista;
-import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_Editable;
 import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_Nuevo;
 import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_Vista;
+import com.example.notascompartidas.Adaptadores.AdaptadorLista;
+import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.Modelos.Mensaje;
 import com.example.notascompartidas.OnclickRecy;
 import com.example.notascompartidas.R;
+import com.example.notascompartidas.SwiperAcccion;
 import com.example.notascompartidas.SwiperControlador;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnclickRecy.OnClickMensaje {
+public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener, OnclickRecy.OnClickMensaje, SwiperAcccion.SwiperMensaje {
 
     protected static EditText edMensaje;
     protected static EditText edTitulo;
@@ -55,26 +56,27 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
     protected static List<Mensaje> lista;
     private RecyclerView recy;
     private boolean isExpan;
-    private Estado_lista estadoLista;
+    protected static Estado_lista estadoLista;
     private ProgressBar progressBar;
-    private DatabaseReference db;
+    protected static AdaptadorLista adaptadorLista;
+    protected static DatabaseReference db;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_listado);
-        db = FirebaseDatabase.getInstance().getReference();
+
         lista = Listas_Usuario_sgt.getInstance().getLista_en_uso().getMensajes();
 
         isExpan = false;
-
+        db = FirebaseDatabase.getInstance().getReference().child("Listas").child(Listas_Usuario_sgt.getInstance().getLista_en_uso().getId()).child("mensajes");
         recy = findViewById(R.id.rcy01);
         recy.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        AdaptadorLista adapter = new AdaptadorLista(this, lista, R.layout.item_listado_mensaje, this);
-        recy.setAdapter(adapter);
+        adaptadorLista = new AdaptadorLista(this, lista, R.layout.item_listado_mensaje, this);
+        recy.setAdapter(adaptadorLista);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwiperControlador(adapter));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwiperControlador(adaptadorLista, this));
         itemTouchHelper.attachToRecyclerView(recy);
 
         progressBar = findViewById(R.id.pb01);
@@ -92,7 +94,6 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         appbar.setOnMenuItemClickListener(this);
 
 
-
         fbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +102,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
 
                 } else {
                     estadoLista = new Estado_lista_Nuevo();
-                    estadoLista.mostar(null);
+                    estadoLista.mostar(null, 0);
                 }
             }
         });
@@ -131,28 +132,31 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
     }
 
     protected Mensaje getMensajeCard(Mensaje mensaje) {
+        Mensaje result;
         if (mensaje == null) {
-            mensaje = new Mensaje();
+            result = new Mensaje();
+        } else {
+            result = new Mensaje(mensaje);
         }
 
         String titulo = edTitulo.getText().toString();
         if (titulo.isEmpty()) {
-            edTitulo.setError(getString(R.string.campoObligado));
+            /*            edTitulo.setError(getString(R.string.campoObligado));*/
             return null;
         }
-        mensaje.setNombre(edTitulo.getText().toString());
-        mensaje.setCuerpo(edMensaje.getText().toString());
+        result.setNombre(titulo);
+        result.setCuerpo(edMensaje.getText().toString());
 
         if (tvfecha.getText().toString().isEmpty()) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a", Locale.getDefault());
             Date date = new Date();
             DateFormat.getTimeInstance();
-            mensaje.setFecha(dateFormat.format(date));
+            result.setFecha(dateFormat.format(date));
         } else {
-            mensaje.setFecha(tvfecha.getText().toString());
+            result.setFecha(tvfecha.getText().toString());
         }
-        mensaje.setRank("0");
-        return mensaje;
+        result.setRank("0");
+        return result;
     }
 
 
@@ -184,10 +188,9 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         isExpan = !type;
     }
 
-
     private void setLayoutAdaptar(List<Mensaje> mensajes, @LayoutRes int layout) {
-        AdaptadorLista adapter = new AdaptadorLista(this, mensajes, layout, this);
-        recy.setAdapter(adapter);
+        adaptadorLista = new AdaptadorLista(this, mensajes, layout, this);
+        recy.setAdapter(adaptadorLista);
 
     }
 
@@ -205,4 +208,10 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         }
         estadoLista.mostar(mensaje);
     }
+
+    @Override
+    public void swiperNensaje(Mensaje mensaje, int position) {
+        db.child(mensaje.getId()).setValue(null);
+    }
+
 }

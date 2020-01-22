@@ -48,6 +48,7 @@ public class Descargar_Listados extends AsyncTask<String, Integer, Boolean> {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     listaItem = new Lista();
                     listaItem.setType(item.getValue(String.class));
+                    listaItem.setId(item.getKey());
                     db2 = FirebaseDatabase.getInstance().getReference("Listas");
                     db2.child(item.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -66,6 +67,7 @@ public class Descargar_Listados extends AsyncTask<String, Integer, Boolean> {
                             Listas_Usuario_sgt.getInstance().addToListas(listaItem);
                             result[0] = true;
                             aui.terminarDescarga(true);
+
                         }
 
                         @Override

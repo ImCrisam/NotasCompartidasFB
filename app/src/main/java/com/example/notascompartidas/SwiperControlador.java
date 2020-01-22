@@ -13,10 +13,12 @@ import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 
 public class SwiperControlador extends ItemTouchHelper.Callback {
 
+    private final SwiperAcccion.SwiperMensaje swiperMensaje;
     AdaptadorLista adapter;
 
-    public  SwiperControlador(AdaptadorLista adapter) {
+    public  SwiperControlador(AdaptadorLista adapter, SwiperAcccion.SwiperMensaje  swiperMensaje) {
         this.adapter = adapter;
+        this.swiperMensaje = swiperMensaje;
     }
 
     @Override
@@ -27,13 +29,18 @@ public class SwiperControlador extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-        if (viewHolder.getItemViewType() != target.getItemViewType()) return false;
+        if (viewHolder.getItemViewType() != target.getItemViewType()) {
+
+            return false;
+        }
         return true;
     }
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        swiperMensaje.swiperNensaje(adapter.getLista().get(viewHolder.getAdapterPosition()), viewHolder.getAdapterPosition());
         adapter.removePosition(viewHolder.getAdapterPosition());
         adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
     }
 }

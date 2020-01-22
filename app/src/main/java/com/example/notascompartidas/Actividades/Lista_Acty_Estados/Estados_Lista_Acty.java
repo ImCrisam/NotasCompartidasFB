@@ -8,9 +8,12 @@ import com.example.notascompartidas.R;
 
 public abstract class Estados_Lista_Acty extends Lista_Acty implements Estado_lista {
 
+    protected Mensaje mensaje;
+    protected int position;
+
     @Override
     public void ocultar(boolean isGuardarTemporal) {
-
+        adaptadorLista.notifyDataSetChanged();
         try {
             edMensaje.clearFocus();
             edTitulo.clearFocus();
@@ -34,7 +37,10 @@ public abstract class Estados_Lista_Acty extends Lista_Acty implements Estado_li
     }
 
     @Override
-    public void mostar(Mensaje mensaje) {
+    public void mostar(Mensaje mensaje, int position) {
+        this.mensaje = mensaje;
+        this.position = position;
+
         edMensaje.setEnabled(true);
         edTitulo.setEnabled(true);
         btnOk.setText(R.string.aceptar);

@@ -9,6 +9,7 @@ public class Lista {
      private List<Mensaje> mensajes;
      private Info info;
      private String type;
+     private String id;
 
 
     public Lista() {
@@ -61,5 +62,13 @@ public class Lista {
     public void addUsuario(Usuario usuario) {
         usuarios.add(usuario);
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
