@@ -12,7 +12,6 @@ public class Estado_main_Nuevo extends Estados_Main_Acty {
     @Override
     public void ocultar() {
         super.ocultar();
-
         ednombre.setText("");
         spinner.setSelected(false);
         usuarios = new ArrayList<>();

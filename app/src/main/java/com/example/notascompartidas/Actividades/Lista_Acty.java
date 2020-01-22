@@ -118,13 +118,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Mensaje m = getMensajeCard(null);
-                if (m != null) {
-                    lista.add(m);
-                    estadoLista.ocultar(false);
-
-                }
+                estadoLista.bntOk();
             }
         });
 
@@ -206,7 +200,7 @@ public class Lista_Acty extends AppCompatActivity implements Toolbar.OnMenuItemC
         } else {
             estadoLista = new Estado_lista_Vista();
         }
-        estadoLista.mostar(mensaje);
+        estadoLista.mostar(mensaje, position);
     }
 
     @Override
