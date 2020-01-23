@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/ds"
-        android:src="@drawable/ic_icon_notas_compartidas02" />
+        android:background="@drawable/anim_ic_nc"/>
 
     <LinearLayout
 

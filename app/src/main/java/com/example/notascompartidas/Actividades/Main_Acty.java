@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -41,6 +42,7 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
     protected static Spinner spinner;
     protected static EditText ednombre;
     protected static RecyclerView rcyUsuarios;
+    private ImageView imageView;
 
 
     @Override
@@ -59,6 +61,7 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
         recyclerView = findViewById(R.id.rcy01);
         estado_main = new Estado_main_Nuevo();
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(Main_Acty.this, RecyclerView.HORIZONTAL, false));
 
         final String extra = getIntent().getExtras().getString("user", null);
         new Descargar_Listados(this).execute(extra);
@@ -118,7 +121,6 @@ public class Main_Acty extends AppCompatActivity implements OnclickRecy.OnClickL
     @Override
     public void terminarDescarga(boolean isOk) {
         adptador = new AdaptadorListas(Main_Acty.this, Listas_Usuario_sgt.getInstance().getListas(), R.layout.item_lista, Main_Acty.this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(Main_Acty.this, RecyclerView.HORIZONTAL, true));
         recyclerView.setAdapter(adptador);
         progressBar.setVisibility(View.GONE);
 

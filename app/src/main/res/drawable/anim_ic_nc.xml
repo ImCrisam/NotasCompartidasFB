@@ -1,0 +1,15 @@
+<animation-list android:id="@+id/selected"
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_nc_00" android:duration="400" />
+    <item android:drawable="@drawable/ic_nc_01" android:duration="180" />
+    <item android:drawable="@drawable/ic_nc_02" android:duration="160" />
+    <item android:drawable="@drawable/ic_nc_03" android:duration="140" />
+    <item android:drawable="@drawable/ic_nc_04" android:duration="120" />
+    <item android:drawable="@drawable/ic_nc_05" android:duration="100" />
+    <item android:drawable="@drawable/ic_nc_06" android:duration="120" />
+    <item android:drawable="@drawable/ic_nc_07" android:duration="140" />
+    <item android:drawable="@drawable/ic_nc_02" android:duration="160" />
+    <item android:drawable="@drawable/ic_nc_01" android:duration="180" />
+
+</animation-list>
