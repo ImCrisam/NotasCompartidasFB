@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Estados_Main_Acty extends Main_Acty implements Estado_main {
 
     protected static AdaptadorUsuarios adaptadorUsuarios;
-    protected static List<Usuario> usuarios;
+    protected static Lista lista;
 
 
     @Override
@@ -22,12 +22,19 @@ public abstract class Estados_Main_Acty extends Main_Acty implements Estado_main
 
     @Override
     public void mostar(Lista lista) {
-        this.usuarios = lista.getUsuarios();
+        this.lista = lista;
         btnf.setExpanded(true);
         rcyUsuarios.setLayoutManager( new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        adaptadorUsuarios = new AdaptadorUsuarios(this.usuarios, R.layout.item_usuario, this, this);
+        adaptadorUsuarios = new AdaptadorUsuarios(lista.getUsuarios(), R.layout.item_usuario, this, this);
         rcyUsuarios.setAdapter(adaptadorUsuarios);
 
+    }
+
+    @Override
+    public void OnClickBorrar(Usuario usuario, int position) {
+        super.OnClickBorrar(usuario, position);
+        lista.getUsuarios().remove(position);
+        adaptadorUsuarios.notifyDataSetChanged();
     }
 
     @Override

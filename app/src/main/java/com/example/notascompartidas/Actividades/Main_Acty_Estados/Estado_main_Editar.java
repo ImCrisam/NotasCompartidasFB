@@ -24,15 +24,14 @@ public class Estado_main_Editar extends Estados_Main_Acty{
     }
 
     @Override
+    public void btnadd() {
+
+    }
+
+    @Override
     public void OnClickEditar(Usuario usuario, int position) {
         super.OnClickEditar(usuario, position);
         System.out.println("editar");
     }
 
-    @Override
-    public void OnClickBorrar(Usuario usuario, int position) {
-        super.OnClickBorrar(usuario, position);
-        System.out.println("editar");
-
-    }
 }

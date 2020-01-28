@@ -42,7 +42,7 @@ public class Descargar_Listados extends AsyncTask<String, Integer, Boolean> {
     protected Boolean doInBackground(String... strings) {
         final Boolean[] result = {false};
         db = FirebaseDatabase.getInstance().getReference();
-        db.child("Usuarios").child(strings[0]).addValueEventListener(new ValueEventListener() {
+        db.child("Usuarios").child(strings[0]).child("listas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
@@ -66,8 +66,6 @@ public class Descargar_Listados extends AsyncTask<String, Integer, Boolean> {
                             }
                             Listas_Usuario_sgt.getInstance().addToListas(listaItem);
                             result[0] = true;
-                            aui.terminarDescarga(true);
-
                         }
 
                         @Override
@@ -76,14 +74,17 @@ public class Descargar_Listados extends AsyncTask<String, Integer, Boolean> {
 
                         }
 
-
                     });
+
                 }
+                aui.terminarDescarga(true);
 
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
+                aui.terminarDescarga(false);
+
 
             }
         });

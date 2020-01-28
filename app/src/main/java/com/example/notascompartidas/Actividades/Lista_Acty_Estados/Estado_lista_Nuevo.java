@@ -28,7 +28,7 @@ public class Estado_lista_Nuevo extends Estados_Lista_Acty {
         Mensaje m = super.getMensajeCard(null);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (m != null) {
-            m.setId(m.generarId(currentUser.getUid()));
+            m.generarId(currentUser.getUid());
             lista.add(m);
             ocultar(false);
             db.child(m.getId()).setValue(m);

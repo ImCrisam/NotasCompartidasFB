@@ -3,17 +3,21 @@ package com.example.notascompartidas.Actividades;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.notascompartidas.Fire;
+import com.example.notascompartidas.FireBase;
+import com.example.notascompartidas.Listas_Usuario_sgt;
+import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,11 +25,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login_Acty extends AppCompatActivity {
+import java.util.Map;
+
+public class Login_Acty extends AppCompatActivity implements FireBase {
     private FirebaseAuth mAuth;
     private EditText edUsuario, edPass;
     private ImageView imageView;
     private AnimationDrawable animationDrawable;
+    private LinearLayout linearLayout;
+    private Fire fire;
+    private Map<String, String> map;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +45,8 @@ public class Login_Acty extends AppCompatActivity {
         imageView = findViewById(R.id.img01);
         edUsuario = findViewById(R.id.ed01);
         edPass = findViewById(R.id.ed02);
-
-
+        linearLayout = findViewById(R.id.rl01);
+        fire = new Fire(this);
         Button btnEntrar = findViewById(R.id.btnOk);
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +56,8 @@ public class Login_Acty extends AppCompatActivity {
                 edPass.setEnabled(false);
             }
         });
-         animationDrawable= (AnimationDrawable)imageView.getBackground();
+        animationDrawable = (AnimationDrawable) imageView.getBackground();
+        animationDrawable.stop();
 
     }
 
@@ -58,6 +70,11 @@ public class Login_Acty extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        linearLayout.setVisibility(View.VISIBLE);
+    }
 
     private void verificarCuenta(String nick, String pass) {
         animationDrawable.start();
@@ -83,13 +100,30 @@ public class Login_Acty extends AppCompatActivity {
                 });
     }
 
+
     private void iniciarApp(FirebaseUser user) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setClass(this, Main_Acty.class);
-        intent.putExtra("user", user.getUid());
-        startActivity(intent);
+        linearLayout.setVisibility(View.GONE);
+        animationDrawable.start();
+        fire.getNombreListas(user.getUid());
+
     }
 
 
+    @Override
+    public void finalizaGetNombres(Map<String, String> map) {
+        this.map = map;
+        for (String item : map.keySet()) {
+            fire.getLista(item);
+        }
+    }
+
+    @Override
+    public void finalizaListas(String s, boolean isok, Lista lista) {
+       Listas_Usuario_sgt.getInstance().addToListas(lista);
+       map.remove(s);
+        if (map.size() == 0) {
+            startActivity(new Intent(this, Main_Acty.class));
+        }
+
+    }
 }

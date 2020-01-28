@@ -1,8 +1,11 @@
 package com.example.notascompartidas.Modelos;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@IgnoreExtraProperties
 public class Lista {
 
      private List<Usuario> usuarios;
@@ -63,12 +66,21 @@ public class Lista {
         usuarios.add(usuario);
 
     }
-
+    @Exclude
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void generarID(String user) {
+        String result;
+        result = info.getFecha();
+        result = result.replace("-", "");
+        result = result.replace(":", "");
+        result = result.replace(" ", "");
+        id= user+result;
     }
 }

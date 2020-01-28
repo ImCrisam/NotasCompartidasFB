@@ -10,6 +10,7 @@ public class Listas_Usuario_sgt {
     private static final Listas_Usuario_sgt ourInstance = new Listas_Usuario_sgt();
     private List<Lista> listas = new ArrayList<>();
     private Lista lista_en_uso;
+    private String nick;
 
 
     public static Listas_Usuario_sgt getInstance() {
@@ -47,5 +48,13 @@ public class Listas_Usuario_sgt {
 
     public void setLista_en_uso(Lista lista_en_uso) {
         this.lista_en_uso = lista_en_uso;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 }

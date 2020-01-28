@@ -10,5 +10,6 @@ public interface Estado_main {
     void ocultar();
     void mostar(Lista lista);
     void bntOk();
+    void btnadd();
 
 }

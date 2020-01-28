@@ -103,13 +103,13 @@ public class Mensaje {
         this.uePor = uePor;
     }
 
-    public String generarId(String user) {
+    public void generarId(String user) {
         String result;
         result = fecha;
         result = result.replace("-", "");
         result = result.replace(":", "");
         result = result.replace(" ", "");
-        return result + user;
+        id= result + user;
 
     }
 

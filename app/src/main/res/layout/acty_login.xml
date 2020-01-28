@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.AppCompat"
+    android:orientation="vertical"
 
-    android:orientation="vertical">
+    android:theme="@style/Theme.AppCompat">
 
-    <ImageView
-        android:id="@+id/img01"
+    <RelativeLayout
+        android:id="@+id/rlimg"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/ds"
-        android:background="@drawable/anim_ic_nc"/>
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/img01"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/anim_ic_nc" />
+    </RelativeLayout>
 
     <LinearLayout
-
         android:id="@+id/rl01"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_below="@+id/img01"
         android:layout_marginHorizontal="@dimen/dxxl"
         android:layout_marginTop="@dimen/dxxl"
         android:layout_marginBottom="@dimen/dxxl"
+        android:layout_weight="1.5"
+        android:visibility="visible"
         android:orientation="vertical">
 
 
@@ -33,12 +42,12 @@
             android:layout_marginTop="@dimen/ds"
             android:background="@drawable/fondo_outline_corne"
             android:gravity="center"
-            android:textStyle="bold"
+            android:hint="@string/usuario"
             android:paddingHorizontal="@dimen/dxl"
             android:paddingVertical="@dimen/ds"
-            android:hint="@string/usuario"
             android:textColor="@color/colorAccentB"
             android:textSize="@dimen/txl"
+            android:textStyle="bold"
 
             />
 
@@ -49,14 +58,13 @@
             android:layout_marginTop="@dimen/ds"
             android:background="@drawable/fondo_outline_corne"
             android:gravity="center"
-            android:textStyle="bold"
+            android:hint="@string/contraseña"
             android:inputType="numberPassword"
             android:paddingHorizontal="@dimen/dxl"
             android:paddingVertical="@dimen/ds"
-            android:hint="@string/contraseña"
             android:textColor="@color/colorAccentB"
             android:textSize="@dimen/txl"
-            />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnOk"
@@ -65,18 +73,17 @@
             android:layout_marginTop="@dimen/dl"
             android:background="@drawable/fondo_outline_corne"
             android:gravity="center"
-            android:textStyle="bold"
             android:paddingHorizontal="@dimen/dxl"
             android:paddingVertical="@dimen/ds"
             android:text="@string/entrar"
             android:textColor="@color/colorAccentB"
             android:textSize="@dimen/txl"
+            android:textStyle="bold"
 
             />
-
 
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
