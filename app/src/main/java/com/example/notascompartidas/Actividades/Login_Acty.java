@@ -35,6 +35,7 @@ public class Login_Acty extends AppCompatActivity implements FireBase {
     private LinearLayout linearLayout;
     private Fire fire;
     private Map<String, String> map;
+    private String idUser;
 
 
     @Override
@@ -102,9 +103,10 @@ public class Login_Acty extends AppCompatActivity implements FireBase {
 
 
     private void iniciarApp(FirebaseUser user) {
+        this.idUser = user.getUid();
         linearLayout.setVisibility(View.GONE);
         animationDrawable.start();
-        fire.getNombreListas(user.getUid());
+        fire.getNombreListas(idUser);
 
     }
 
@@ -118,9 +120,13 @@ public class Login_Acty extends AppCompatActivity implements FireBase {
     }
 
     @Override
-    public void finalizaListas(String s, boolean isok, Lista lista) {
-       Listas_Usuario_sgt.getInstance().addToListas(lista);
-       map.remove(s);
+    public void finalizaListas(String nameList, boolean isok, Lista lista) {
+        if (isok) {
+            Listas_Usuario_sgt.getInstance().addToListas(lista);
+        } else {
+            fire.eliminarListaDeUsuario(idUser , nameList);
+        }
+        map.remove(nameList);
         if (map.size() == 0) {
             startActivity(new Intent(this, Main_Acty.class));
         }

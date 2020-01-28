@@ -20,7 +20,7 @@ import java.util.Map;
 public class Fire {
     private Lista listaItem;
     private FireBase fireBase;
-
+    private Usuario usuario;
     public Fire(FireBase actualizarUI) {
         this.fireBase = actualizarUI;
     }
@@ -46,19 +46,24 @@ public class Fire {
     }
 
     public void getLista(final String idLista) {
-        DatabaseReference db2 = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference db2;
         db2 = FirebaseDatabase.getInstance().getReference("Listas");
         db2.child(idLista).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaItem = new Lista();
-                Usuario usuario = new Usuario();
-                listaItem.setId(dataSnapshot.getKey());
-                listaItem.setInfo(dataSnapshot.child("info").getValue(Info.class));
-                for (DataSnapshot item : dataSnapshot.child("usuarios").getChildren()) {
-                    listaItem.addUsuario(item.getValue(Usuario.class));
+                if (dataSnapshot.getValue() != null) {
+                    listaItem = new Lista();
+                    usuario = new Usuario();
+                    listaItem.setId(dataSnapshot.getKey());
+                    listaItem.setInfo(dataSnapshot.child("info").getValue(Info.class));
+                    for (DataSnapshot item : dataSnapshot.child("usuarios").getChildren()) {
+                        listaItem.addUsuario(item.getValue(Usuario.class));
+                    }
+                    fireBase.finalizaListas(idLista, true, listaItem);
+                } else {
+                    fireBase.finalizaListas(idLista, false, null);
+
                 }
-                fireBase.finalizaListas(idLista, true, listaItem);
             }
 
             @Override
@@ -67,5 +72,10 @@ public class Fire {
 
             }
         });
+    }
+
+    public void eliminarListaDeUsuario(String user, String nameLista) {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        db.child("Usuarios").child(user).child("listas").child(nameLista).setValue(null);
     }
 }
