@@ -1,13 +1,12 @@
 package com.example.notascompartidas;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
+import com.example.notascompartidas.Interface.FireBase;
+import com.example.notascompartidas.Interface.ValidarUsuario;
 import com.example.notascompartidas.Modelos.Info;
 import com.example.notascompartidas.Modelos.Lista;
-import com.example.notascompartidas.Modelos.Mensaje;
 import com.example.notascompartidas.Modelos.Usuario;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,12 +14,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Fire {
+
     private Lista listaItem;
     private FireBase fireBase;
     private Usuario usuario;
+    private String temporal;
+
+
     public Fire(FireBase actualizarUI) {
         this.fireBase = actualizarUI;
     }
@@ -77,5 +81,37 @@ public class Fire {
     public void eliminarListaDeUsuario(String user, String nameLista) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("Usuarios").child(user).child("listas").child(nameLista).setValue(null);
+    }
+
+
+    public void existeUsarios(final List<Usuario> users, final ValidarUsuario validarUsuario) {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        db.child("Usuarios").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    temporal =item.child("nick").getValue(String.class);
+                    for (Usuario user : users) {
+                        if (temporal.equals(user.getNick())) {
+                            validarUsuario.ValidarUsuario(item.getKey(), user, true);
+                            users.remove(user);
+                            break;
+                        }
+                    }
+
+                }
+                if (users.size() != 0) {
+                    for (Usuario userinvalidos : users) {
+                        validarUsuario.ValidarUsuario(null, userinvalidos, false);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                validarUsuario.ValidarUsuario(null, null, false);
+            }
+
+        });
     }
 }

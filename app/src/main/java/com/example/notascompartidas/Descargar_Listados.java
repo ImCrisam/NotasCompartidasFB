@@ -2,6 +2,7 @@ package com.example.notascompartidas;
 
 import android.os.AsyncTask;
 
+import com.example.notascompartidas.Interface.ActualizarUI;
 import com.example.notascompartidas.Modelos.Info;
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.Modelos.Mensaje;

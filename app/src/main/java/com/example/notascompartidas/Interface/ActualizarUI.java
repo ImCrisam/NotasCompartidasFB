@@ -1,4 +1,4 @@
-package com.example.notascompartidas;
+package com.example.notascompartidas.Interface;
 
 public interface ActualizarUI {
 

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notascompartidas.Adaptadores.ViewHolder.ViewHolder_Usuario_item;
 import com.example.notascompartidas.Modelos.Usuario;
-import com.example.notascompartidas.OnclickRecy;
+import com.example.notascompartidas.Interface.OnclickRecy;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class AdaptadorUsuarios extends RecyclerView.Adapter<ViewHolder_Usuario_i
     public void onBindViewHolder(@NonNull ViewHolder_Usuario_item holder, final int position) {
         item = lista.get(position);
 
-        holder.nombre.setText(item.getNombre());
+        holder.nombre.setText(item.getNick());
     /*    holder.img.setImageDrawable(context.getDrawable(R.drawable.ic_close_black_24dp));*/
 
 

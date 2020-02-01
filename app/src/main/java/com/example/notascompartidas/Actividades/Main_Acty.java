@@ -22,7 +22,7 @@ import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.Modelos.Info;
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.Modelos.Usuario;
-import com.example.notascompartidas.OnclickRecy;
+import com.example.notascompartidas.Interface.OnclickRecy;
 import com.example.notascompartidas.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;

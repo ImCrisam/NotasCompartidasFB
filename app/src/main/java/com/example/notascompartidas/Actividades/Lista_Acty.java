@@ -26,9 +26,9 @@ import com.example.notascompartidas.Actividades.Lista_Acty_Estados.Estado_lista_
 import com.example.notascompartidas.Adaptadores.AdaptadorLista;
 import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.Modelos.Mensaje;
-import com.example.notascompartidas.OnclickRecy;
+import com.example.notascompartidas.Interface.OnclickRecy;
 import com.example.notascompartidas.R;
-import com.example.notascompartidas.SwiperAcccion;
+import com.example.notascompartidas.Interface.SwiperAcccion;
 import com.example.notascompartidas.SwiperControlador;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

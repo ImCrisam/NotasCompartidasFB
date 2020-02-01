@@ -1,4 +1,4 @@
-package com.example.notascompartidas;
+package com.example.notascompartidas.Interface;
 
 import com.example.notascompartidas.Modelos.Lista;
 

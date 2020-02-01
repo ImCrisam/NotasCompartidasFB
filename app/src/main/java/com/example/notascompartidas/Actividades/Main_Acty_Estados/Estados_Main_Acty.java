@@ -12,6 +12,7 @@ public abstract class Estados_Main_Acty extends Main_Acty implements Estado_main
 
     protected static AdaptadorUsuarios adaptadorUsuarios;
     protected static Lista lista;
+    protected String temporal;
 
 
     @Override

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notascompartidas.Adaptadores.ViewHolder.ViewHolder_mensaje;
 import com.example.notascompartidas.Modelos.Mensaje;
-import com.example.notascompartidas.OnclickRecy;
+import com.example.notascompartidas.Interface.OnclickRecy;
 
 import java.util.List;
 

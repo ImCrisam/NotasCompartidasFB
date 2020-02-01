@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.notascompartidas.Fire;
-import com.example.notascompartidas.FireBase;
+import com.example.notascompartidas.Interface.FireBase;
 import com.example.notascompartidas.Listas_Usuario_sgt;
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.R;

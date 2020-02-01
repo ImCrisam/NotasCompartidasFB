@@ -41,12 +41,26 @@ public class Estado_main_Nuevo extends Estados_Main_Acty {
 
     @Override
     public void btnadd() {
-        usuario = new Usuario();
-        usuario.setNombre(ednombre.getText().toString());
-        usuario.setType("admin");
+        ednombre.setError(null);
+        temporal = ednombre.getText().toString();
+        if (temporal != null) {
+            if (!temporal.isEmpty()) {
+                if (!lista.usuarioExiste(temporal)) {
+                    usuario = new Usuario();
+                    usuario.setNick(ednombre.getText().toString());
+                    usuario.setType("admin");
+                    lista.addUsuario(usuario);
+                    ednombre.setText("");
+                    adaptadorUsuarios.notifyDataSetChanged();
+                    return;
 
-        lista.addUsuario(usuario);
-        adaptadorUsuarios.notifyDataSetChanged();
+                } else {
+                    ednombre.setError("Usuario ya existe");
+                    return;
+                }
+            }
+        }
+        ednombre.setError("");
     }
 
     @Override

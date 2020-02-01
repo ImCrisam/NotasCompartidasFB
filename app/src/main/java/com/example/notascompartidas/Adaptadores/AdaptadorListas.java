@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notascompartidas.Adaptadores.ViewHolder.ViewHolder_listas;
 import com.example.notascompartidas.Modelos.Lista;
 import com.example.notascompartidas.Modelos.Usuario;
-import com.example.notascompartidas.OnclickRecy;
+import com.example.notascompartidas.Interface.OnclickRecy;
 
 import java.util.List;
 

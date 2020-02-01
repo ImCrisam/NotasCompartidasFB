@@ -5,14 +5,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @IgnoreExtraProperties
 public class Lista {
 
-     private List<Usuario> usuarios;
-     private List<Mensaje> mensajes;
-     private Info info;
-     private String type;
-     private String id;
+    private List<Usuario> usuarios;
+    private List<Mensaje> mensajes;
+    private Info info;
+    private String type;
+    private String id;
 
 
     public Lista() {
@@ -66,6 +67,7 @@ public class Lista {
         usuarios.add(usuario);
 
     }
+
     @Exclude
     public String getId() {
         return id;
@@ -81,6 +83,15 @@ public class Lista {
         result = result.replace("-", "");
         result = result.replace(":", "");
         result = result.replace(" ", "");
-        id= user+result;
+        id = user + result;
+    }
+
+    public boolean usuarioExiste(String nick) {
+        for (Usuario user : usuarios) {
+            if (user.getNick().equals(nick)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
